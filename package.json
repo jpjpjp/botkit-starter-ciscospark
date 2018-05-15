@@ -1,7 +1,7 @@
 {
-  "name": "botkit-starter-ciscospark",
+  "name": "webex-bot-botkit",
   "version": "0.0.1",
-  "description": "A starter kit for building a custom Cisco Spark bot with Botkit Studio",
+  "description": "A starter kit for building a custom Webex Teams bot with Botkit",
   "main": "bot.js",
   "scripts": {
     "start": "node bot.js"
@@ -28,7 +28,9 @@
   "keywords": [
     "bots",
     "chatbots",
-    "Cisco Spark"
+    "Cisco Spark",
+    "Webex",
+    "Webex Teams"
   ],
   "author": "ben@howdy.ai",
   "license": "ISC"
