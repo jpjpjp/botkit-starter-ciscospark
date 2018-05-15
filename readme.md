@@ -1,3 +1,18 @@
+# webex-bot-botkit
+This is a fork of the [Botkit Starting Point for Webex Teams](https://github.com/howdyai/botkit-starter-ciscospark), which provided an example of how to create a (then) Cisco Spark bot using botkit.   This fork is designed to as a companion to the [webex-api-emulator](https://github.com/webex/webex-api-emulator) to provide an example of a bot that regression tests could be created for.
+
+Developers who are working with the [bot-test-framework-example](https://github.com/jpjpjp/bot-test-framework-example) can use this project as a replacement for the node-flint based example included in that project.   As you work through the steps to run the tests as described in the [bot-test-framework-example README](https://github.com/jpjpjp/bot-test-framework-example/blob/master/README.md), replace the section titled "Running the bot in test mode" with the following instructions:
+
+* clone this repository
+* run `npm install` to download the dependencies
+* run `npm start` to start the bot
+
+If you've started the emulator, and then this bot properly you should see two terminal windows that look something like:
+
+![Emulator and Bot Output](startup.png)
+
+What follows is the original botkit starter project's readme:
+
 # Botkit Starter Kit for Cisco Spark Bots
 
 This repo contains everything you need to get started building a Cisco Spark bot with [Botkit](https://botkit.ai) and [Botkit Studio](https://botkit.ai).
