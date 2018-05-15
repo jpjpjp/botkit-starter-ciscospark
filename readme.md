@@ -1,5 +1,5 @@
 # webex-bot-botkit
-This is a fork of the [Botkit Starting Point for Webex Teams](https://github.com/howdyai/botkit-starter-ciscospark), which provided an example of how to create a (then) Cisco Spark bot using botkit.   This fork is designed to as a companion to the [webex-api-emulator](https://github.com/webex/webex-api-emulator) to provide an example of a bot that regression tests could be created for.
+This is a fork of the [Botkit Starting Point for Webex Teams](https://github.com/howdyai/botkit-starter-ciscospark), which provides an example of how to create a Webex Teams bot using botkit.   This fork is designed to provide  a companion botkit based bot that works with the [webex-api-emulator](https://github.com/webex/webex-api-emulator) which allows developers to run regression tests against their bots.
 
 Developers who are working with the [bot-test-framework-example](https://github.com/jpjpjp/bot-test-framework-example) can use this project as a replacement for the node-flint based example included in that project.   As you work through the steps to run the tests as described in the [bot-test-framework-example README](https://github.com/jpjpjp/bot-test-framework-example/blob/master/README.md), replace the section titled "Running the bot in test mode" with the following instructions:
 
@@ -10,6 +10,31 @@ Developers who are working with the [bot-test-framework-example](https://github.
 If you've started the emulator, and then this bot properly you should see two terminal windows that look something like:
 
 ![Emulator and Bot Output](startup.png)
+
+## Making your own bot testable
+Once you get this bot running with the [bot-test-framework-example](https://github.com/jpjpjp/bot-test-framework-example), and understand how it works you may want to make your own bot testable with the [webex-api-emulator](https://github.com/webex/webex-api-emulator).    There are just a few steps necessary to do this, all demonstrated in this project.
+
+1) Configure your environment so that the bot sends requests to the Webex API emulator.   The provided [.env](./.env) file demonstrates how to do this.   This file can be used as is with your bot if you are running the webex api emulator locally with the tokens.json file that comes with the base project.
+
+2) Modify [components/subscribe_events.js](./components/subscribe_events.js) to allow for registering an http://localhost based URL for the webehooks.   Typically this involves replacing this line:
+    ```
+    var hook_url = 'https://' + controller.config.public_address + '/ciscospark/receive';
+    ```
+  
+    with this:
+    ```
+    if (process.env.public_address.startsWith('http://')) {
+        // If environment specifies non https don't force the webhook URL to be https
+        // This generally only happens if we are using a local webex API emulator
+        var hook_url = 'http://' + controller.config.public_address + '/ciscospark/receive';
+    } else {
+        var hook_url = 'https://' + controller.config.public_address + '/ciscospark/receive';
+    }
+    ```
+
+  Note that this step is uncessary if you are able to register an https based address (perhaps by using a tool like ngrok).
+
+After that start your bot as you would normally and it should talk to the webex api emulator.   Begin building test cases in postman as described in the [bot-test-framework-example README](https://github.com/jpjpjp/bot-test-framework-example/blob/master/README.md)
 
 What follows is the original botkit starter project's readme:
 
