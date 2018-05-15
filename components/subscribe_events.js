@@ -16,7 +16,13 @@ module.exports = function(controller) {
             }
         }
 
-        var hook_url = 'https://' + controller.config.public_address + '/ciscospark/receive';
+        if (process.env.public_address.startsWith('http://')) {
+            // If environment specifies non https don't force the webhook URL to be https
+            // This generally only happens if we are using a local webex API emulator
+            var hook_url = 'http://' + controller.config.public_address + '/ciscospark/receive';
+        } else {
+            var hook_url = 'https://' + controller.config.public_address + '/ciscospark/receive';
+        }
 
         debug('Cisco Spark: incoming webhook url is ', hook_url);
 
