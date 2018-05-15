@@ -1,3 +1,8 @@
 db
 node_modules
 components/routes/_*
+.DS_Store
+.env-emulator
+.env-spark
+.eslintrc.js
+npm-debug.log
